@@ -1389,9 +1389,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 213704784}
-        m_TargetAssemblyTypeName: StartGame, Assembly-CSharp
-        m_MethodName: StartScene
+      - m_Target: {fileID: 213704788}
+        m_TargetAssemblyTypeName: ChooseLvl, Assembly-CSharp
+        m_MethodName: Level6
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
