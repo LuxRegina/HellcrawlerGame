@@ -55,7 +55,7 @@ public class AngelBossScript : MonoBehaviour
 
         if (phaseTwo && !phaseTwoActivated)
         {
-            Debug.Log("Entering phaseTwo");
+            //Debug.Log("Entering phaseTwo");
 
             // Activate second phase platforms
             foreach (SecondPhasePlatform platform in secondPhasePlatforms)
@@ -172,7 +172,7 @@ public class AngelBossScript : MonoBehaviour
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        if (player != null)
+        if (player == null)  //(player != null) Change back for normal behaviour.
         {
             for (int i = 0; i < 5; i++)
             {
@@ -201,22 +201,24 @@ public class AngelBossScript : MonoBehaviour
         float startY = -1.75f;
         float endY = 1.75f;
         float spacing = 0.25f;
-        float xPosLeft = -3.7f;
-        float xPosRight = 3.7f;
+        //float xPosLeft = -3.7f; // Uncomment for phase two spears to work as normal.
+        //float xPosRight = 3.7f; // Uncomment for phase two spears to work as normal.
 
         if (startY + currentSpearIndex * spacing <= endY)
         {
-            // Spawn spear on the left side
-            Vector3 leftSpawnPosition = new Vector3(xPosLeft, startY + currentSpearIndex * spacing, 1);
-            Quaternion leftSpawnRotation = Quaternion.Euler(0, 0, 0);
-            Instantiate(Resources.Load<GameObject>("PreFab/Spear"), leftSpawnPosition, leftSpawnRotation);
+            // Uncomment for phase two spears to work as normal.
 
-            // Spawn spear on the right side with rotation
-            Vector3 rightSpawnPosition = new Vector3(xPosRight, startY + currentSpearIndex * spacing, 1);
-            Quaternion rightSpawnRotation = Quaternion.Euler(0, 0, 180); // Rotate the spear on the right side
-            Instantiate(Resources.Load<GameObject>("PreFab/Spear"), rightSpawnPosition, rightSpawnRotation);
+            //// Spawn spear on the left side
+            //Vector3 leftSpawnPosition = new Vector3(xPosLeft, startY + currentSpearIndex * spacing, 1);
+            //Quaternion leftSpawnRotation = Quaternion.Euler(0, 0, 0);
+            //Instantiate(Resources.Load<GameObject>("PreFab/Spear"), leftSpawnPosition, leftSpawnRotation);
 
-            currentSpearIndex++;
+            //// Spawn spear on the right side with rotation
+            //Vector3 rightSpawnPosition = new Vector3(xPosRight, startY + currentSpearIndex * spacing, 1);
+            //Quaternion rightSpawnRotation = Quaternion.Euler(0, 0, 180); // Rotate the spear on the right side
+            //Instantiate(Resources.Load<GameObject>("PreFab/Spear"), rightSpawnPosition, rightSpawnRotation);
+
+            //currentSpearIndex++;
         }
         else
         {
