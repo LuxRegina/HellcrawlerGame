@@ -28,10 +28,10 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetButtonDown("Horizontal"))
-        {
-            anim.Play("RunningAnim");
-        }
+        //if (Input.GetButtonDown("Horizontal"))  Doesnt do anything(?)
+        //{
+        //    //anim.Play("RunningAnim");
+        //}
 
         if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Horizontal") && Paused == true)
         {
