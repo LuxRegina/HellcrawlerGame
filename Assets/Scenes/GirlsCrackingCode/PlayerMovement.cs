@@ -28,10 +28,12 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetButtonDown("Horizontal"))
+        if (Input.GetButtonDown("right") || Input.GetButtonDown("left"))
         {
             anim.Play("RunningAnim");
         }
+
+        if(Input.GetButtonDown("right"))
 
         if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Horizontal") && Paused == true)
         {
@@ -49,18 +51,20 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
-
         if (IsGrounded())
         {
             doubleJump = 0;
         }
 
         Flip();
+        Debug.Log("Is Grounded: " + IsGrounded());
     }
 
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+
+
     }
 
     private bool IsGrounded()
