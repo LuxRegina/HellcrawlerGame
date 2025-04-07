@@ -27,43 +27,22 @@ public class PlayerMovement : MonoBehaviour
     void Update()  // Update runs constantly and makes it possible for unity to instantly feel when a button is pressed.
     {
         horizontal = 0f;
-        if (Input.GetButton("right"))       // By switching between 1 float and -1 float, we tell Unity to move left or right.
-        {
-            horizontal = 1f;
-        }
-        else if (Input.GetButton("left"))
-        {
-            horizontal = -1f;
-        }
+       
 
-        // This handles the animation of the character to switch between "running left/running right".
-        if (Input.GetButtonDown("right") || Input.GetButtonDown("left"))
+        //// This handles the animation of the character to switch between "running left/running right".
+        if (Input.GetButtonDown(" ") || Input.GetButtonDown(" "))
         {
             anim.Play("RunningAnim");
         }
 
 
-        // This Unpauses the game at start when the player moves.
-        if (Input.GetButtonDown("Jump") || Input.GetButtonDown("right") || Input.GetButtonDown("left") && Paused == true)
+        //// This Unpauses the game at start when the player moves and presses spacebar.
+        if (Input.GetButtonDown(" ") && Paused == true)
         {
             Time.timeScale = 1;
             Paused = false;
         }
 
-        if (Input.GetButtonDown("Jump") && doubleJump < 1)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-            doubleJump++;
-        }
-
-        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-        }
-        if (IsGrounded())
-        {
-            doubleJump = 0;
-        }
 
         Flip();
 
@@ -71,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // This handles the physics of our player. How fast we fall and in what direction.
+        // This handles the physics of our player. How fast we fall, and in what direction.
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
     }
 
