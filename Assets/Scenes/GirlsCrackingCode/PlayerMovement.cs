@@ -12,9 +12,9 @@ public class PlayerMovement : MonoBehaviour
     public GameObject GameOver;
 
     [Header("Movement variables")]
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Rigidbody2D rb; // Handles physics of player
+    [SerializeField] private Transform groundCheck; // checks if player is standing on ground to be able to jump
+    [SerializeField] private LayerMask groundLayer;  // Gives the player a ground to stand on
 
     public Animator anim;
 
@@ -24,51 +24,43 @@ public class PlayerMovement : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    void Update()
+    void Update()  // Update runs constantly and makes it possible for unity to instantly feel when a button is pressed.
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
+        horizontal = 0f;
+       
 
-        if (Input.GetButtonDown("Horizontal"))
+        //// This handles the animation of the character to switch between "running left/running right".
+        if (Input.GetButtonDown(" ") || Input.GetButtonDown(" "))
         {
             anim.Play("RunningAnim");
         }
 
-        if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Horizontal") && Paused == true)
+
+        //// This Unpauses the game at start when the player moves and presses spacebar.
+        if (Input.GetButtonDown(" ") && Paused == true)
         {
             Time.timeScale = 1;
             Paused = false;
         }
 
-        if (Input.GetButtonDown("Jump") && doubleJump < 1)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-            doubleJump++;
-        }
-
-        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-        }
-
-        if (IsGrounded())
-        {
-            doubleJump = 0;
-        }
 
         Flip();
+
     }
 
     private void FixedUpdate()
     {
+        // This handles the physics of our player. How fast we fall, and in what direction.
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
     }
 
     private bool IsGrounded()
     {
+        // This checks if the player is standing on ground, to know if jumping is possible.
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 
-    private void Flip()
+    private void Flip() // This makes sure the character is facing the direction it is moving at all times.
     {
         if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
         {
@@ -76,14 +68,6 @@ public class PlayerMovement : MonoBehaviour
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
-        }
-    }
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Attack"))
-        {
-            Time.timeScale = 0;
-            GameOver.SetActive(true);
         }
     }
 }
