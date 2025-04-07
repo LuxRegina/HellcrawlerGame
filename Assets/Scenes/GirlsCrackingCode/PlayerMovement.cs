@@ -57,14 +57,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Flip();
-        Debug.Log("Is Grounded: " + IsGrounded());
+      
     }
 
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-
-
     }
 
     private bool IsGrounded()
